@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weight Chart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+	    <div class="container">
+
+	      <h1>Gym Weight Lifting Chart</h1>
+
+		  <form>
+			<label for="one-rep-max">One Rep Max</label>
+			<input type="text" name="one-rep-max" id="one-rep-max" class="watch-for-change">
+
+			<label for="machine-weight">Machine Weight</label>
+			<input type="text" name="machine-weight" id="machine-weight" class="watch-for-change">
+
+			<label for="dumbbell">Split</label>
+			<input type="checkbox" name="split" id="split" class="watch-for-change">
+			
+			<table class="table table-bordered table-striped">
+				<tr class="header">
+					<th>Repetitions</th>
+					<th>S.O.F.</th>
+					<th>Weight to lift</th>
+					<th>Split</th>
+				</tr>
+		    </table>
+		  </form>
+	    </div> <!-- /container -->
+	<style>
+	  table {margin-top: 20px;}
+	</style>
+	
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		$( document ).ready(function() {
+			$.each([ 15, 12, 10 ], function( repIndex, repValue ) {
+				$.each([ 5, 4, 3, 2, 1, 0 ], function( sofIndex, sofValue ) {
+					$('table > tbody').append('<tr><td>' + repValue + '</td><td>' + sofValue + '</td><td id="' + repValue + '-' + sofValue + '-weight"></td><td id="' + repValue + '-' + sofValue + '-split"></td></tr>');
+			    });
+			});
+		});
+	
+		$(".watch-for-change" ).change(function() {
+			var oneRepMax = $('#one-rep-max').val();
+			var machineWeight = $('#machine-weight').val();
+			
+			$.each([ 15, 12, 10 ], function( repIndex, repValue ) {
+				$.each([ 5, 4, 3, 2, 1, 0 ], function( sofIndex, sofValue ) {
+					var targetReps = repValue + sofValue;
+					var pctOfMax = .5;
+				
+					if (targetReps >= 2 && targetReps <= 3)
+					{
+					   pctOfMax = .95;
+					}
+					else if (targetReps >= 4 && targetReps <= 5)
+					{
+					   pctOfMax = .9;
+					}
+					else if (targetReps >= 6 && targetReps <= 7)
+					{
+					   pctOfMax = .85;
+					}
+					else if (targetReps >= 8 && targetReps <= 9)
+					{
+					   pctOfMax = .8;
+					}
+					else if (targetReps >= 10 && targetReps <= 11)
+					{
+					   pctOfMax = .75;
+					}
+					else if (targetReps >= 12 && targetReps <= 13)
+					{
+					   pctOfMax = .7;
+					}
+					else if (targetReps >= 14 && targetReps <= 15)
+					{
+					   pctOfMax = .65;
+					}
+					else if (targetReps >= 16 && targetReps <= 17)
+					{
+					   pctOfMax = .6;
+					}
+					else if (targetReps >= 18 && targetReps <= 19)
+					{
+					   pctOfMax = .55;
+					}
+					else 
+					{
+					   pctOfMax = .5;
+					}
+					weightKey = "#" + repValue + "-" + sofValue + "-weight";
+					weightSplit = "#" + repValue + "-" + sofValue + "-split";
+					weightToLift = (pctOfMax * oneRepMax).toFixed();
+					if (machineWeight > 0) {
+						weightToLift = weightToLift - machineWeight;
+					}
+					$(weightKey).text(weightToLift);
+					if ($('#split').is(':checked')) {
+						$(weightSplit).text(weightToLift / 2);
+					} else {
+						$(weightSplit).text('');
+					}
+			    });
+		  
+			});
+		});
+	
+	
+	</script>
+  </body>
+</html>
