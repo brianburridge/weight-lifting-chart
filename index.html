@@ -34,6 +34,7 @@
 				<tr class="header">
 					<th>Repetitions</th>
 					<th>S.O.F.</th>
+					<th>Total Weight</th>
 					<th>Weight to Add</th>
 					<th>Split</th>
 				</tr>
@@ -48,6 +49,7 @@
 				<tr class="header">
 					<th>Repetitions</th>
 					<th>S.O.F.</th>
+					<th>Total Weight</th>
 					<th>Weight to Add</th>
 					<th>Split</th>
 				</tr>
@@ -71,7 +73,7 @@
 		$( document ).ready(function() {
 			$.each([ 15, 12, 10, 8 ], function( repIndex, repValue ) {
 				$.each([ 5, 4, 3, 2, 1, 0 ], function( sofIndex, sofValue ) {
-					$('table#chart > tbody').append('<tr class="selectable"><td>' + repValue + '</td><td>' + sofValue + '</td><td id="' + repValue + '-' + sofValue + '-weight"></td><td id="' + repValue + '-' + sofValue + '-split"></td></tr>');
+					$('table#chart > tbody').append('<tr class="selectable"><td>' + repValue + '</td><td>' + sofValue + '</td><td id="' + repValue + '-' + sofValue + '-weight"></td><td id="' + repValue + '-' + sofValue + '-weight-to-add"></td><td id="' + repValue + '-' + sofValue + '-split"></td></tr>');
 			    });
 			});
 
@@ -84,7 +86,7 @@
 			$('#todays-workout > tbody').append('<tr><td colspan="4" class="title">'+$('#exercise-name').val() + '</td></tr>');
 			$('.selected').each(function(i, obj) {
 				$( obj ).toggleClass('selected');
-				var row = obj.cloneNode();
+				var row = obj.clone();
 				console.log(row);
 				$('#todays-workout > tbody').append(row);
 				$('#todays-workout tbody td').removeAttr('id');
@@ -143,15 +145,18 @@
 					{
 					   pctOfMax = .5;
 					}
-					weightKey = "#" + repValue + "-" + sofValue + "-weight";
-					weightSplit = "#" + repValue + "-" + sofValue + "-split";
-					weightToLift = (pctOfMax * oneRepMax).toFixed();
+					var weightKey = "#" + repValue + "-" + sofValue + "-weight";
+					var weightToAddKey = "#" + repValue + "-" + sofValue + "-weight-to-add";
+					var weightSplit = "#" + repValue + "-" + sofValue + "-split";
+					var weightToLift = (pctOfMax * oneRepMax).toFixed();
+					var weightToAdd = weightToLift;
 					if (machineWeight > 0) {
-						weightToLift = weightToLift - machineWeight;
+						weightToAdd = weightToLift - machineWeight;
 					}
 					$(weightKey).text(weightToLift);
+					$(weightToAddKey).text(weightToAdd);
 					if ($('#split').is(':checked')) {
-						$(weightSplit).text(weightToLift / 2);
+						$(weightSplit).text(weightToAdd / 2);
 					} else {
 						$(weightSplit).text('');
 					}
