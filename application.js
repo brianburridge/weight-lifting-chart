@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 	$.each([ 15, 12, 10, 8 ], function( repIndex, repValue ) {
 		$.each([ 5, 4, 3, 2, 1, 0 ], function( sofIndex, sofValue ) {
-			$('table#chart > tbody').append('<tr class="selectable"><td>' + repValue + '</td><td>' + sofValue + '</td><td id="' + repValue + '-' + sofValue + '-weight"></td><td id="' + repValue + '-' + sofValue + '-weight-to-add"></td><td id="' + repValue + '-' + sofValue + '-split"></td></tr>');
+			$('table#chart > tbody').append('<tr class="selectable"><td>' + repValue + '</td><td class="sof-column">' + sofValue + '</td><td id="' + repValue + '-' + sofValue + '-weight"></td><td id="' + repValue + '-' + sofValue + '-weight-to-add"></td><td id="' + repValue + '-' + sofValue + '-split"></td></tr>');
 	    });
 	});
 
@@ -10,8 +10,11 @@ $( document ).ready(function() {
 	});
 });
 
+$('#print-workout').click(function () {
+	$('#chart-entry').toggle();
+})
 $('input#add').click(function () {
-	$('#todays-workout > tbody').append('<tr><td colspan="5" class="title">'+$('#exercise-name').val() + '</td></tr>');
+	$('#todays-workout > tbody').append('<tr><td colspan="4" class="title">'+$('#exercise-name').val() + '</td></tr>');
 	$('.selected').each(function(index) {
 		$( this ).toggleClass('selected');
 		var row = $(this).clone();
@@ -21,6 +24,7 @@ $('input#add').click(function () {
 	$('#exercise-name').val('');
 	$('#one-rep-max').val('');
 	$('#machine-weight').val('');
+	$('#todays-workout td.sof-column').hide();
 });
 
 $(".watch-for-change" ).change(function() {
