@@ -3,13 +3,13 @@
   <head>
     <title>Weight Chart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="style.css" rel="stylesheet" media="screen">
   </head>
   <body>
 
 	    <div class="container">
-
+		  <div id="chart_entry">
 	      <h1>Gym Weight Lifting Chart</h1>
 
 		  <form id="exercise-values">
@@ -42,7 +42,7 @@
 		
 			<input type="button" value="Add Exercise" class="btn btn-primary" id="add">
 		  </form>
-		
+		 </div>
 		  <h2>Today's Workout</h2>
 		  <table id="todays-workout" class="table table-bordered table-striped">
 			<thead>
@@ -58,113 +58,9 @@
 			</tbody>
 		  </table>
 	    </div> <!-- /container -->
-	<style>
-	  table {margin-top: 20px;}
-	  input#split {margin-left: 20px;}
-	  tr.selectable.selected td {background-color: #F0E295 !important;}
-	  form ul {list-style-type: none;padding-left:0px;margin-top: 30px}
-	  form ul li { height: 40px;margin-left:0px;}
-	  form ul li label {width: 130px;}
-	</style>
 	
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script>
-		$( document ).ready(function() {
-			$.each([ 15, 12, 10, 8 ], function( repIndex, repValue ) {
-				$.each([ 5, 4, 3, 2, 1, 0 ], function( sofIndex, sofValue ) {
-					$('table#chart > tbody').append('<tr class="selectable"><td>' + repValue + '</td><td>' + sofValue + '</td><td id="' + repValue + '-' + sofValue + '-weight"></td><td id="' + repValue + '-' + sofValue + '-weight-to-add"></td><td id="' + repValue + '-' + sofValue + '-split"></td></tr>');
-			    });
-			});
-
-		    $('.selectable').click(function() {
-				$( this ).toggleClass('selected');
-			});
-		});
-	
-		$('input#add').click(function () {
-			$('#todays-workout > tbody').append('<tr><td colspan="5" class="title">'+$('#exercise-name').val() + '</td></tr>');
-			$('.selected').each(function(index) {
-				$( this ).toggleClass('selected');
-				var row = $(this).clone();
-				$('#todays-workout > tbody').append(row);
-				$('#todays-workout tbody td').removeAttr('id');
-			});
-			$('#exercise-name').val('');
-			$('#one-rep-max').val('');
-			$('#machine-weight').val('');
-		});
-		
-		$(".watch-for-change" ).change(function() {
-			var oneRepMax = $('#one-rep-max').val();
-			var machineWeight = $('#machine-weight').val();
-			
-			$.each([ 15, 12, 10, 8 ], function( repIndex, repValue ) {
-				$.each([ 5, 4, 3, 2, 1, 0 ], function( sofIndex, sofValue ) {
-					var targetReps = repValue + sofValue;
-					var pctOfMax = .5;
-				
-					if (targetReps >= 2 && targetReps <= 3)
-					{
-					   pctOfMax = .95;
-					}
-					else if (targetReps >= 4 && targetReps <= 5)
-					{
-					   pctOfMax = .9;
-					}
-					else if (targetReps >= 6 && targetReps <= 7)
-					{
-					   pctOfMax = .85;
-					}
-					else if (targetReps >= 8 && targetReps <= 9)
-					{
-					   pctOfMax = .8;
-					}
-					else if (targetReps >= 10 && targetReps <= 11)
-					{
-					   pctOfMax = .75;
-					}
-					else if (targetReps >= 12 && targetReps <= 13)
-					{
-					   pctOfMax = .7;
-					}
-					else if (targetReps >= 14 && targetReps <= 15)
-					{
-					   pctOfMax = .65;
-					}
-					else if (targetReps >= 16 && targetReps <= 17)
-					{
-					   pctOfMax = .6;
-					}
-					else if (targetReps >= 18 && targetReps <= 19)
-					{
-					   pctOfMax = .55;
-					}
-					else 
-					{
-					   pctOfMax = .5;
-					}
-					var weightKey = "#" + repValue + "-" + sofValue + "-weight";
-					var weightToAddKey = "#" + repValue + "-" + sofValue + "-weight-to-add";
-					var weightSplit = "#" + repValue + "-" + sofValue + "-split";
-					var weightToLift = (pctOfMax * oneRepMax).toFixed();
-					var weightToAdd = weightToLift;
-					if (machineWeight > 0) {
-						weightToAdd = weightToLift - machineWeight;
-					}
-					$(weightKey).text(weightToLift);
-					$(weightToAddKey).text(weightToAdd);
-					if ($('#split').is(':checked')) {
-						$(weightSplit).text(weightToAdd / 2);
-					} else {
-						$(weightSplit).text('');
-					}
-			    });
-		  
-			});
-		});
-	
-	
-	</script>
+    <script src="application.js"></script>
   </body>
 </html>

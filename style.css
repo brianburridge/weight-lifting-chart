@@ -1,0 +1,6 @@
+  table {margin-top: 20px;}
+  input#split {margin-left: 20px;}
+  tr.selectable.selected td {background-color: #F0E295 !important;}
+  form ul {list-style-type: none;padding-left:0px;margin-top: 30px}
+  form ul li { height: 40px;margin-left:0px;}
+  form ul li label {width: 130px;}
