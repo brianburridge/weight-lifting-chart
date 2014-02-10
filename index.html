@@ -83,11 +83,10 @@
 		});
 	
 		$('input#add').click(function () {
-			$('#todays-workout > tbody').append('<tr><td colspan="4" class="title">'+$('#exercise-name').val() + '</td></tr>');
-			$('.selected').each(function(i, obj) {
-				$( obj ).toggleClass('selected');
-				var row = obj.clone();
-				console.log(row);
+			$('#todays-workout > tbody').append('<tr><td colspan="5" class="title">'+$('#exercise-name').val() + '</td></tr>');
+			$('.selected').each(function(index) {
+				$( this ).toggleClass('selected');
+				var row = $(this).clone();
 				$('#todays-workout > tbody').append(row);
 				$('#todays-workout tbody td').removeAttr('id');
 			});
