@@ -28,7 +28,13 @@ $('input#add').click(function () {
 });
 
 $(".watch-for-change" ).change(function() {
+	var reps = $('#reps').val();
+	var repsWeight = $('#rep-weight').val();
 	var oneRepMax = $('#one-rep-max').val();
+	if (reps != undefined && repsWeight != undefined && (oneRepMax === "" || oneRepMax == 0)) {
+		oneRepMax = Math.round(repsWeight / (1.013 - (0.0267123 * reps)));
+		$('#one-rep-max').val(oneRepMax);
+	}
 	var machineWeight = $('#machine-weight').val();
 	
 	$.each([ 15, 12, 10, 8 ], function( repIndex, repValue ) {
