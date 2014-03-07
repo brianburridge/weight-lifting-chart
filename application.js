@@ -31,7 +31,7 @@ $(".watch-for-change" ).change(function() {
 	var reps = $('#reps').val();
 	var repsWeight = $('#rep-weight').val();
 	var oneRepMax = $('#one-rep-max').val();
-	if (reps != undefined && repsWeight != undefined && (oneRepMax === "" || oneRepMax == 0)) {
+	if (reps != "" && repsWeight != "") {
 		oneRepMax = Math.round(repsWeight / (1.013 - (0.0267123 * reps)));
 		$('#one-rep-max').val(oneRepMax);
 	}
